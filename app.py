@@ -9,14 +9,13 @@ st.set_page_config(
     page_title="Customer Churn Predictor",
     page_icon="✈️",
     layout="centered"
+)
+
 st.markdown("""
 <style>
-/* Background */
 .stApp {
     background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
 }
-
-/* Title */
 h1 {
     background: linear-gradient(90deg, #a78bfa, #f472b6, #34d399);
     -webkit-background-clip: text;
@@ -25,26 +24,15 @@ h1 {
     font-weight: 800 !important;
     text-align: center;
 }
-
-/* Subheaders */
 h2, h3 {
     color: #a78bfa !important;
 }
-
-/* Student badge */
-.stMarkdown p strong {
-    color: #c4b5fd;
-}
-
-/* Column cards */
 div[data-testid="column"] {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(167,139,250,0.25);
     border-radius: 16px;
     padding: 1rem !important;
 }
-
-/* Predict button */
 div[data-testid="stButton"] > button {
     background: linear-gradient(135deg, #7c3aed, #db2777) !important;
     color: white !important;
@@ -59,50 +47,24 @@ div[data-testid="stButton"] > button:hover {
     opacity: 0.85 !important;
     transform: translateY(-2px) !important;
 }
-
-/* Selectbox */
 div[data-testid="stSelectbox"] > div > div {
     background: rgba(255,255,255,0.06) !important;
     border: 1px solid rgba(167,139,250,0.3) !important;
     border-radius: 10px !important;
     color: #e0e0ff !important;
 }
-
-/* Slider */
 .stSlider > div > div > div > div {
     background: linear-gradient(90deg, #7c3aed, #db2777) !important;
 }
-
-/* Metric box */
 div[data-testid="metric-container"] {
     background: rgba(124,58,237,0.15) !important;
     border: 1px solid rgba(167,139,250,0.35) !important;
     border-radius: 14px !important;
     padding: 1rem !important;
 }
-
-/* Success box */
-div[data-testid="stAlert"][kind="success"], .stSuccess {
-    background: rgba(52,211,153,0.10) !important;
-    border-left: 4px solid #34d399 !important;
-    border-radius: 10px !important;
-    color: #6ee7b7 !important;
-}
-
-/* Error box */
-div[data-testid="stAlert"][kind="error"], .stError {
-    background: rgba(244,114,182,0.10) !important;
-    border-left: 4px solid #f472b6 !important;
-    border-radius: 10px !important;
-    color: #f9a8d4 !important;
-}
-
-/* Divider */
 hr {
     border-color: rgba(167,139,250,0.2) !important;
 }
-
-/* Table */
 table {
     background: rgba(255,255,255,0.04) !important;
     border-radius: 10px !important;
@@ -112,19 +74,15 @@ th {
     background: rgba(124,58,237,0.3) !important;
     color: #c4b5fd !important;
 }
-
-/* Caption */
 .stCaption {
     color: rgba(167,139,250,0.6) !important;
     text-align: center !important;
 }
-
-/* General text */
 p, label, .stMarkdown {
     color: #d1d5f0 !important;
 }
 </style>
-""", unsafe_allow_html=True))
+""", unsafe_allow_html=True)
 
 # Load model
 @st.cache_resource
@@ -136,7 +94,16 @@ model = load_model()
 
 # ── UI ──────────────────────────────────────────────────────────────────────
 st.title("✈️ Customer Churn Prediction")
-st.markdown("**B.Tech Gen AI | Harshil Parmar | KU2507U0511**")
+
+st.markdown("""
+<div style='text-align:center; margin-bottom:0.5rem;'>
+  <span style='background:rgba(167,139,250,0.15); border:1px solid rgba(167,139,250,0.3);
+  border-radius:100px; padding:5px 18px; font-size:0.82rem; color:#a78bfa; letter-spacing:1px;'>
+  ✦ &nbsp;B.Tech Gen AI &nbsp;|&nbsp; Harshil Parmar &nbsp;|&nbsp; KU2507U0511&nbsp; ✦
+  </span>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown("---")
 st.subheader("Enter Customer Details")
 

@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-from sklearn.preprocessing import LabelEncoder
 
 # Page configuration
 st.set_page_config(
@@ -24,9 +23,7 @@ h1 {
     font-weight: 800 !important;
     text-align: center;
 }
-h2, h3 {
-    color: #a78bfa !important;
-}
+h2, h3 { color: #a78bfa !important; }
 div[data-testid="column"] {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(167,139,250,0.25);
@@ -55,19 +52,11 @@ div[data-testid="stSelectbox"] > div > div {
 .stSlider > div > div > div > div {
     background: linear-gradient(90deg, #7c3aed, #db2777) !important;
 }
-div[data-testid="metric-container"] {
-    background: rgba(124,58,237,0.15) !important;
-    border: 1px solid rgba(167,139,250,0.35) !important;
-    border-radius: 14px !important;
-    padding: 1rem !important;
-}
 hr { border-color: rgba(167,139,250,0.2) !important; }
 th { background: rgba(124,58,237,0.3) !important; color: #c4b5fd !important; }
 td { color: #e0e0ff !important; }
 .stCaption { color: rgba(167,139,250,0.6) !important; text-align: center !important; }
 p, label, .stMarkdown { color: #d1d5f0 !important; }
-
-/* Section divider label */
 .section-label {
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -77,12 +66,12 @@ p, label, .stMarkdown { color: #d1d5f0 !important; }
     padding-left: 2px;
 }
 
-/* Result boxes */
+/* RESULT BOX */
 .result-churn {
     background: linear-gradient(135deg, #3b0a1f, #1f0a2e);
     border: 1px solid #f472b6;
     border-radius: 20px;
-    padding: 1.8rem 1.5rem;
+    padding: 2rem 1.5rem;
     text-align: center;
     box-shadow: 0 0 40px rgba(244,114,182,0.2);
 }
@@ -90,7 +79,7 @@ p, label, .stMarkdown { color: #d1d5f0 !important; }
     background: linear-gradient(135deg, #0a2e1f, #0a1f2e);
     border: 1px solid #34d399;
     border-radius: 20px;
-    padding: 1.8rem 1.5rem;
+    padding: 2rem 1.5rem;
     text-align: center;
     box-shadow: 0 0 40px rgba(52,211,153,0.2);
 }
@@ -99,8 +88,8 @@ p, label, .stMarkdown { color: #d1d5f0 !important; }
 .result-title-safe  { font-size: 1.7rem; font-weight: 800; color: #34d399; margin-bottom: 0.3rem; }
 .result-subtitle { font-size: 0.88rem; color: #9ca3af; margin-bottom: 1.2rem; }
 .prob-label { font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; }
-.prob-value-churn { font-size: 3rem; font-weight: 900; color: #f472b6; line-height: 1; }
-.prob-value-safe  { font-size: 3rem; font-weight: 900; color: #34d399; line-height: 1; }
+.prob-value-churn { font-size: 3.2rem; font-weight: 900; color: #f472b6; line-height: 1; }
+.prob-value-safe  { font-size: 3.2rem; font-weight: 900; color: #34d399; line-height: 1; }
 .progress-track {
     background: rgba(255,255,255,0.08);
     border-radius: 100px;
@@ -110,12 +99,84 @@ p, label, .stMarkdown { color: #d1d5f0 !important; }
 }
 .progress-fill-churn { height:100%; border-radius:100px; background: linear-gradient(90deg,#f472b6,#db2777); }
 .progress-fill-safe  { height:100%; border-radius:100px; background: linear-gradient(90deg,#34d399,#059669); }
+
+/* STATS ROW */
+.stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 1.2rem 0;
+    flex-wrap: wrap;
+}
+.stat-pill {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 0.6rem 1rem;
+    min-width: 90px;
+}
+.stat-pill-label { font-size: 0.68rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; }
+.stat-pill-val-churn { font-size: 1.1rem; font-weight: 700; color: #f472b6; }
+.stat-pill-val-safe  { font-size: 1.1rem; font-weight: 700; color: #34d399; }
+
+/* RISK METER */
+.risk-meter-wrap { margin: 0.8rem auto; max-width: 320px; }
+.risk-meter-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: #6b7aab;
+    margin-bottom: 4px;
+}
+.risk-track {
+    height: 10px;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #34d399, #f7c06a, #f472b6);
+    position: relative;
+}
+.risk-pointer {
+    position: absolute;
+    top: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #1a1a2e;
+    transform: translateX(-50%);
+    box-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+/* INSIGHTS */
+.insights-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 1.2rem 0;
+    text-align: left;
+}
+.insight-card-churn {
+    background: rgba(244,114,182,0.07);
+    border: 1px solid rgba(244,114,182,0.2);
+    border-radius: 12px;
+    padding: 0.75rem 0.9rem;
+}
+.insight-card-safe {
+    background: rgba(52,211,153,0.07);
+    border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 12px;
+    padding: 0.75rem 0.9rem;
+}
+.insight-icon { font-size: 1.2rem; margin-bottom: 4px; }
+.insight-title-churn { font-size: 0.78rem; font-weight: 700; color: #f9a8d4; margin-bottom: 2px; }
+.insight-title-safe  { font-size: 0.78rem; font-weight: 700; color: #6ee7b7; margin-bottom: 2px; }
+.insight-text { font-size: 0.74rem; color: #9ca3af; line-height: 1.4; }
+
+/* RECOMMENDATION */
 .rec-box-churn {
     background: rgba(244,114,182,0.08);
     border: 1px solid rgba(244,114,182,0.25);
     border-radius: 12px;
-    padding: 0.9rem 1rem;
-    margin-top: 1rem;
+    padding: 1rem 1.1rem;
+    margin-top: 0.5rem;
     color: #f9a8d4;
     font-size: 0.88rem;
     text-align: left;
@@ -124,48 +185,14 @@ p, label, .stMarkdown { color: #d1d5f0 !important; }
     background: rgba(52,211,153,0.08);
     border: 1px solid rgba(52,211,153,0.25);
     border-radius: 12px;
-    padding: 0.9rem 1rem;
-    margin-top: 1rem;
+    padding: 1rem 1.1rem;
+    margin-top: 0.5rem;
     color: #6ee7b7;
     font-size: 0.88rem;
     text-align: left;
 }
-
-/* Summary card */
-.summary-box {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(167,139,250,0.2);
-    border-radius: 16px;
-    padding: 1.2rem 1.4rem;
-    margin-top: 1.2rem;
-}
-.summary-title {
-    color: #a78bfa;
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 0.8rem;
-    font-weight: 600;
-}
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.45rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-size: 0.88rem;
-}
-.summary-row:last-child { border-bottom: none; }
-.summary-key { color: #9ca3af; }
-.summary-val { color: #e0e0ff; font-weight: 600; }
-.badge-visual {
-    font-size: 0.72rem;
-    background: rgba(167,139,250,0.15);
-    border: 1px solid rgba(167,139,250,0.3);
-    color: #a78bfa;
-    border-radius: 100px;
-    padding: 1px 8px;
-    margin-left: 6px;
-}
+.rec-title { font-weight: 700; font-size: 0.82rem; margin-bottom: 0.4rem; }
+.rec-item { margin: 0.25rem 0; font-size: 0.82rem; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -179,7 +206,6 @@ model = load_model()
 
 # ── HEADER ───────────────────────────────────────────────────────────────────
 st.title("✈️ Customer Churn Prediction")
-
 st.markdown("""
 <div style='text-align:center; margin-bottom:0.8rem;'>
   <span style='background:rgba(167,139,250,0.15); border:1px solid rgba(167,139,250,0.3);
@@ -191,7 +217,7 @@ st.markdown("""
 
 st.markdown("---")
 
-# ── SECTION 1: Core Inputs (used by model) ───────────────────────────────────
+# ── SECTION 1: Core Inputs ───────────────────────────────────────────────────
 st.markdown("<div class='section-label'>🔵 Core Customer Info</div>", unsafe_allow_html=True)
 st.subheader("Enter Customer Details")
 
@@ -207,7 +233,7 @@ with col2:
 
 st.markdown("---")
 
-# ── SECTION 2: Extra Visual Inputs (display only, not used by model) ─────────
+# ── SECTION 2: Extra Visual Inputs ───────────────────────────────────────────
 st.markdown("<div class='section-label'>🟣 Additional Customer Profile</div>", unsafe_allow_html=True)
 st.subheader("Extended Details")
 
@@ -247,98 +273,171 @@ if st.button("🔍 Predict Churn", use_container_width=True):
     st.subheader("Prediction Result")
 
     if prediction == 1:
-        churn_pct = round(probability[1] * 100, 1)
+        churn_pct  = round(probability[1] * 100, 1)
+        retain_pct = round(probability[0] * 100, 1)
+        pointer_pos = churn_pct
+
+        # risk level label
+        if churn_pct >= 70:
+            risk_level = "🔴 Very High Risk"
+        elif churn_pct >= 50:
+            risk_level = "🟠 High Risk"
+        else:
+            risk_level = "🟡 Moderate Risk"
+
         st.markdown(f"""
         <div class="result-churn">
             <div class="result-emoji">🚨</div>
             <div class="result-title-churn">Customer Will CHURN</div>
-            <div class="result-subtitle">This customer is at high risk of leaving the service</div>
+            <div class="result-subtitle">This customer is at risk of leaving the service</div>
+
             <div class="prob-label">Churn Probability</div>
             <div class="prob-value-churn">{churn_pct}%</div>
             <div class="progress-track">
                 <div class="progress-fill-churn" style="width:{churn_pct}%"></div>
             </div>
+
+            <div class="stats-row">
+                <div class="stat-pill">
+                    <div class="stat-pill-label">Risk Level</div>
+                    <div class="stat-pill-val-churn">{risk_level}</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="stat-pill-label">Stay Chance</div>
+                    <div class="stat-pill-val-churn">{retain_pct}%</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="stat-pill-label">Satisfaction</div>
+                    <div class="stat-pill-val-churn">{satisfaction}/10</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="stat-pill-label">Complaints</div>
+                    <div class="stat-pill-val-churn">{complaints}</div>
+                </div>
+            </div>
+
+            <div class="risk-meter-wrap">
+                <div class="risk-meter-label"><span>Low</span><span>Medium</span><span>High</span></div>
+                <div class="risk-track">
+                    <div class="risk-pointer" style="left:{pointer_pos}%"></div>
+                </div>
+            </div>
+
+            <div class="insights-wrap">
+                <div class="insight-card-churn">
+                    <div class="insight-icon">📉</div>
+                    <div class="insight-title-churn">Low Retention</div>
+                    <div class="insight-text">Customer shows signs of disengagement based on usage pattern.</div>
+                </div>
+                <div class="insight-card-churn">
+                    <div class="insight-icon">⚠️</div>
+                    <div class="insight-title-churn">Income Sensitivity</div>
+                    <div class="insight-text">{annual_income} customers are more price-sensitive to service changes.</div>
+                </div>
+                <div class="insight-card-churn">
+                    <div class="insight-icon">✈️</div>
+                    <div class="insight-title-churn">Flyer Status</div>
+                    <div class="insight-text">{"Frequent flyers tend to compare offers more actively." if frequent_flyer == "Yes" else "Non-frequent flyers have lower brand loyalty."}</div>
+                </div>
+                <div class="insight-card-churn">
+                    <div class="insight-icon">🛎️</div>
+                    <div class="insight-title-churn">Services Used</div>
+                    <div class="insight-text">Only {services_opted} out of 6 services opted — low engagement level.</div>
+                </div>
+            </div>
+
             <div class="rec-box-churn">
-                💡 <strong>Recommendation:</strong> Offer a personalized discount, loyalty reward points,
-                or a dedicated support callback to retain this customer before they leave.
+                <div class="rec-title">💡 Retention Recommendations</div>
+                <div class="rec-item">🎁 Offer a personalized discount or cashback on next booking</div>
+                <div class="rec-item">📞 Assign a dedicated customer support agent</div>
+                <div class="rec-item">⭐ Upgrade membership tier to increase loyalty</div>
+                <div class="rec-item">📧 Send re-engagement email with exclusive offers</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
 
     else:
         retain_pct = round(probability[0] * 100, 1)
+        churn_pct  = round(probability[1] * 100, 1)
+        pointer_pos = churn_pct
+
+        if retain_pct >= 80:
+            loyalty_level = "🟢 Very Loyal"
+        elif retain_pct >= 60:
+            loyalty_level = "🟡 Fairly Loyal"
+        else:
+            loyalty_level = "🟠 Moderately Loyal"
+
         st.markdown(f"""
         <div class="result-safe">
             <div class="result-emoji">✅</div>
             <div class="result-title-safe">Customer is SAFE</div>
             <div class="result-subtitle">This customer is likely to continue using the service</div>
+
             <div class="prob-label">Retention Probability</div>
             <div class="prob-value-safe">{retain_pct}%</div>
             <div class="progress-track">
                 <div class="progress-fill-safe" style="width:{retain_pct}%"></div>
             </div>
+
+            <div class="stats-row">
+                <div class="stat-pill">
+                    <div class="stat-pill-label">Loyalty Level</div>
+                    <div class="stat-pill-val-safe">{loyalty_level}</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="stat-pill-label">Churn Risk</div>
+                    <div class="stat-pill-val-safe">{churn_pct}%</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="stat-pill-label">Satisfaction</div>
+                    <div class="stat-pill-val-safe">{satisfaction}/10</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="stat-pill-label">Membership</div>
+                    <div class="stat-pill-val-safe">{membership}</div>
+                </div>
+            </div>
+
+            <div class="risk-meter-wrap">
+                <div class="risk-meter-label"><span>Low</span><span>Medium</span><span>High</span></div>
+                <div class="risk-track">
+                    <div class="risk-pointer" style="left:{pointer_pos}%"></div>
+                </div>
+            </div>
+
+            <div class="insights-wrap">
+                <div class="insight-card-safe">
+                    <div class="insight-icon">💚</div>
+                    <div class="insight-title-safe">Strong Retention</div>
+                    <div class="insight-text">Customer engagement and usage pattern look healthy and stable.</div>
+                </div>
+                <div class="insight-card-safe">
+                    <div class="insight-icon">💰</div>
+                    <div class="insight-title-safe">Income Class</div>
+                    <div class="insight-text">{annual_income} customers show stable spending behaviour with the service.</div>
+                </div>
+                <div class="insight-card-safe">
+                    <div class="insight-icon">✈️</div>
+                    <div class="insight-title-safe">Flyer Status</div>
+                    <div class="insight-text">{"Frequent flyer status adds strong loyalty to the brand." if frequent_flyer == "Yes" else "Customer is consistent even as a non-frequent flyer."}</div>
+                </div>
+                <div class="insight-card-safe">
+                    <div class="insight-icon">🛎️</div>
+                    <div class="insight-title-safe">Services Used</div>
+                    <div class="insight-text">{services_opted} out of 6 services opted — {"high" if services_opted >= 4 else "moderate"} engagement level.</div>
+                </div>
+            </div>
+
             <div class="rec-box-safe">
-                💡 <strong>Recommendation:</strong> Continue providing quality service and
-                occasional loyalty perks to maintain long-term customer satisfaction.
+                <div class="rec-title">💡 Retention Recommendations</div>
+                <div class="rec-item">🌟 Reward with loyalty points to maintain engagement</div>
+                <div class="rec-item">📬 Send personalized thank-you offers periodically</div>
+                <div class="rec-item">🚀 Upsell premium services based on their usage</div>
+                <div class="rec-item">📊 Monitor satisfaction score regularly to stay proactive</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
-
-    # ── INPUT SUMMARY CARD ────────────────────────────────────────────────────
-    st.markdown(f"""
-    <div class="summary-box">
-        <div class="summary-title">📋 Full Input Summary</div>
-
-        <div class="summary-row">
-            <span class="summary-key">Age</span>
-            <span class="summary-val">{age} yrs</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Frequent Flyer</span>
-            <span class="summary-val">{frequent_flyer}</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Annual Income Class</span>
-            <span class="summary-val">{annual_income}</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Services Opted</span>
-            <span class="summary-val">{services_opted}</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Social Media Synced</span>
-            <span class="summary-val">{social_media}</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Booked Hotel</span>
-            <span class="summary-val">{booked_hotel}</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Flights per Year <span class="badge-visual">visual</span></span>
-            <span class="summary-val">{flight_frequency}</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Travel Class <span class="badge-visual">visual</span></span>
-            <span class="summary-val">{travel_class}</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Loyalty Points <span class="badge-visual">visual</span></span>
-            <span class="summary-val">{loyalty_points}K pts</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Complaints Raised <span class="badge-visual">visual</span></span>
-            <span class="summary-val">{complaints}</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Satisfaction Score <span class="badge-visual">visual</span></span>
-            <span class="summary-val">{satisfaction} / 10</span>
-        </div>
-        <div class="summary-row">
-            <span class="summary-key">Membership Tier <span class="badge-visual">visual</span></span>
-            <span class="summary-val">{membership}</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
 
 st.markdown("---")
 st.caption("Customer Churn Prediction App | Random Forest Model | Deployed via Streamlit Cloud")

@@ -9,7 +9,122 @@ st.set_page_config(
     page_title="Customer Churn Predictor",
     page_icon="✈️",
     layout="centered"
-)
+st.markdown("""
+<style>
+/* Background */
+.stApp {
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+/* Title */
+h1 {
+    background: linear-gradient(90deg, #a78bfa, #f472b6, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.4rem !important;
+    font-weight: 800 !important;
+    text-align: center;
+}
+
+/* Subheaders */
+h2, h3 {
+    color: #a78bfa !important;
+}
+
+/* Student badge */
+.stMarkdown p strong {
+    color: #c4b5fd;
+}
+
+/* Column cards */
+div[data-testid="column"] {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(167,139,250,0.25);
+    border-radius: 16px;
+    padding: 1rem !important;
+}
+
+/* Predict button */
+div[data-testid="stButton"] > button {
+    background: linear-gradient(135deg, #7c3aed, #db2777) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    transition: transform 0.2s, opacity 0.2s !important;
+}
+div[data-testid="stButton"] > button:hover {
+    opacity: 0.85 !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Selectbox */
+div[data-testid="stSelectbox"] > div > div {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(167,139,250,0.3) !important;
+    border-radius: 10px !important;
+    color: #e0e0ff !important;
+}
+
+/* Slider */
+.stSlider > div > div > div > div {
+    background: linear-gradient(90deg, #7c3aed, #db2777) !important;
+}
+
+/* Metric box */
+div[data-testid="metric-container"] {
+    background: rgba(124,58,237,0.15) !important;
+    border: 1px solid rgba(167,139,250,0.35) !important;
+    border-radius: 14px !important;
+    padding: 1rem !important;
+}
+
+/* Success box */
+div[data-testid="stAlert"][kind="success"], .stSuccess {
+    background: rgba(52,211,153,0.10) !important;
+    border-left: 4px solid #34d399 !important;
+    border-radius: 10px !important;
+    color: #6ee7b7 !important;
+}
+
+/* Error box */
+div[data-testid="stAlert"][kind="error"], .stError {
+    background: rgba(244,114,182,0.10) !important;
+    border-left: 4px solid #f472b6 !important;
+    border-radius: 10px !important;
+    color: #f9a8d4 !important;
+}
+
+/* Divider */
+hr {
+    border-color: rgba(167,139,250,0.2) !important;
+}
+
+/* Table */
+table {
+    background: rgba(255,255,255,0.04) !important;
+    border-radius: 10px !important;
+    color: #e0e0ff !important;
+}
+th {
+    background: rgba(124,58,237,0.3) !important;
+    color: #c4b5fd !important;
+}
+
+/* Caption */
+.stCaption {
+    color: rgba(167,139,250,0.6) !important;
+    text-align: center !important;
+}
+
+/* General text */
+p, label, .stMarkdown {
+    color: #d1d5f0 !important;
+}
+</style>
+""", unsafe_allow_html=True))
 
 # Load model
 @st.cache_resource
